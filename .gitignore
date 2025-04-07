@@ -1,2 +1,7 @@
 .idea/
-billing-app.iml
+*.iml
+mvnw
+*.cmd
+.mvn/
+.env
+target/
