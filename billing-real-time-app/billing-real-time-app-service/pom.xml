@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.nexign</groupId>
-        <artifactId>cdr-generator-app</artifactId>
+        <artifactId>billing-real-time-app</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cdr-generator-app-service</artifactId>
+    <artifactId>billing-real-time-app-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
@@ -17,20 +17,20 @@
     </properties>
 
     <dependencies>
+        <!--   Database     -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!--   AMPQ     -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
-        <!--   Database     -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!--  Libraries      -->
+        <!--  libs      -->
         <dependency>
             <groupId>com.nexign</groupId>
             <artifactId>lib-util</artifactId>
@@ -40,6 +40,12 @@
         <dependency>
             <groupId>com.nexign</groupId>
             <artifactId>lib-cdr-generator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexign</groupId>
+            <artifactId>lib-billing-real-time-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
