@@ -8,9 +8,9 @@ import java.util.Random;
 @UtilityClass
 public class GeneratorUtil {
 
-    private static final Integer minRandomCdrCount = 300;
-    private static final Integer maxRandomCdrCount = 1500;
-    private static final Random random = new Random();
+    private static final Integer MIN_RANDOM_CDR_COUNT = 300;
+    private static final Integer MAX_RANDOM_CDR_COUNT = 1500;
+    private final Random random = new Random();
 
     /**
      * Метод, генерирующий случайное число, которое соответствует количеству созданных записей в таблицу call_data
@@ -18,7 +18,7 @@ public class GeneratorUtil {
      * @return Количество создаваемых записей в таблицу call_data
      */
     public static int generateRandomNumberCallRecords() {
-        return random.nextInt(maxRandomCdrCount - minRandomCdrCount + 1) + minRandomCdrCount;
+        return random.nextInt(MAX_RANDOM_CDR_COUNT - MIN_RANDOM_CDR_COUNT + 1) + MIN_RANDOM_CDR_COUNT;
     }
 
     /**

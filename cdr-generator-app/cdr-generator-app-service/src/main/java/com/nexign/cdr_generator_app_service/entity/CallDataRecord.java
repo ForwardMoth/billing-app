@@ -56,6 +56,12 @@ public class CallDataRecord extends TimeStampEntity {
     @Column(name = "finish_call_time", nullable = false)
     private LocalDateTime finishCallTime;
 
+    /**
+     * Признак отправления CDR в МС BRT
+     */
+    @Column(name = "is_sent", nullable = false)
+    private boolean isSent = false;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
