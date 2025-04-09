@@ -5,12 +5,21 @@ import lombok.Data;
 
 import java.time.Duration;
 
+/**
+ * Случайная длительность часов и минут
+ */
 @Data
 @Builder
 public class RandomDurationDto {
 
-    Duration durationHours;
+    /**
+     * Случайная длительность часов (от 1 до 24 часов) в секундах
+     */
+    private Duration durationHours;
 
-    Duration durationMinutes;
+    /**
+     * Случайная длительность минут (от 1 до 240 минут) в секундах
+     */
+    private Duration durationMinutes;
 
 }

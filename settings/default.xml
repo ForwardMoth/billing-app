@@ -1,0 +1,20 @@
+<code_scheme name="Default" version="173">
+  <option name="RIGHT_MARGIN" value="160" />
+  <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true"/>
+  <JavaCodeStyleSettings>
+    <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999"/>
+    <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999"/>
+  </JavaCodeStyleSettings>
+  <editorconfig>
+    <option name="ENABLED" value="false"/>
+  </editorconfig>
+  <codeStyleSettings language="JAVA">
+    <option name="RIGHT_MARGIN" value="160" />
+    <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false"/>
+    <option name="LINE_COMMENT_ADD_SPACE" value="true"/>
+    <option name="LINE_COMMENT_ADD_SPACE_ON_REFORMAT" value="true"/>
+    <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1"/>
+    <option name="BLANK_LINES_BEFORE_CLASS_END" value="1"/>
+    <option name="WRAP_LONG_LINES" value="true"/>
+  </codeStyleSettings>
+</code_scheme>
