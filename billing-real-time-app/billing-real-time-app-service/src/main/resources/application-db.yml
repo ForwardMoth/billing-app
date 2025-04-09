@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${BRT_DATABASE_HOST}/${BRT_DATABASE_NAME}
+    username: ${BRT_DATABASE_USERNAME}
+    password: ${BRT_DATABASE_PASSWORD}
+    hikari:
+      data-source-properties:
+        useUnicode: true
+        characterEncoding: UTF-8
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog.yaml
