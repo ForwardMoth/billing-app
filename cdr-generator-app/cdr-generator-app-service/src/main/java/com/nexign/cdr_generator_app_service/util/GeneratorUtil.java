@@ -8,8 +8,8 @@ import java.util.Random;
 @UtilityClass
 public class GeneratorUtil {
 
-    private static final Integer MIN_RANDOM_CDR_COUNT = 300;
-    private static final Integer MAX_RANDOM_CDR_COUNT = 1500;
+    private static final Integer MIN_RANDOM_CDR_COUNT = 10;
+    private static final Integer MAX_RANDOM_CDR_COUNT = 100;
     private final Random random = new Random();
 
     /**
