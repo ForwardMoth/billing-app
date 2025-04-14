@@ -7,3 +7,5 @@ spring:
 
 rabbitmq:
   queue-name: ${RABBIT_MQ_QUEUE_NAME}
+  exchange-name: ${RABBIT_MQ_EXCHANGE_NAME}
+  routing-key: ${RABBIT_MQ_ROUTING_KEY}
