@@ -4,9 +4,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
+@SuperBuilder
 @MappedSuperclass
 public class IdEntity implements Serializable {
 
@@ -14,12 +16,12 @@ public class IdEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public IdEntity(final Long id) {
-        this.id = id;
-    }
-
     public IdEntity() {
 
+    }
+
+    public IdEntity(final Long id) {
+        this.id = id;
     }
 
     public Long getId() {
@@ -49,6 +51,11 @@ public class IdEntity implements Serializable {
         Object id = this.getId();
         result = result * 59 + (id == null ? 43 : id.hashCode());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "IdEntity(id=" + this.getId() + ")";
     }
 
 }
