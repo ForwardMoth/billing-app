@@ -1,0 +1,92 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4.0-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBIT_MQ_USERNAME}
+      RABBITMQ_DEFAULT_PASS: ${RABBIT_MQ_PASSWORD}
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  billing-real-time-app-db:
+    image: postgres:15
+    container_name: billing-real-time-app-db
+    environment:
+      POSTGRES_DB: ${BRT_DATABASE_NAME}
+      POSTGRES_USER: ${BRT_DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${BRT_DATABASE_PASSWORD}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  billing-real-time-app:
+    container_name: billing-real-time-app
+    depends_on:
+      billing-real-time-app-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    build:
+      context: ./billing-real-time-app
+    ports:
+      - "8081:8081"
+    environment:
+      BRT_DATABASE_HOST: ${BRT_DATABASE_DOCKER_HOST}
+      BRT_DATABASE_USERNAME: ${BRT_DATABASE_USERNAME}
+      BRT_DATABASE_PASSWORD: ${BRT_DATABASE_PASSWORD}
+      BRT_DATABASE_NAME: ${BRT_DATABASE_NAME}
+      RABBIT_MQ_HOST: ${RABBIT_MQ_DOCKER_HOST}
+      RABBIT_MQ_PORT: ${RABBIT_MQ_PORT}
+      RABBIT_MQ_USERNAME: ${RABBIT_MQ_USERNAME}
+      RABBIT_MQ_PASSWORD: ${RABBIT_MQ_PASSWORD}
+      RABBIT_MQ_QUEUE_NAME: ${RABBIT_MQ_QUEUE_NAME}
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  cdr-generator-app:
+    container_name: cdr-generator-app
+    depends_on:
+      billing-real-time-app:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    build:
+      context: ./cdr-generator-app
+    ports:
+      - "8080:8080"
+    environment:
+      CDR_DATABASE_URL: ${CDR_DATABASE_URL}
+      CDR_DATABASE_USERNAME: ${CDR_DATABASE_USERNAME}
+      CDR_DATABASE_PASSWORD: ${CDR_DATABASE_PASSWORD}
+      RABBIT_MQ_HOST: ${RABBIT_MQ_DOCKER_HOST}
+      RABBIT_MQ_PORT: ${RABBIT_MQ_PORT}
+      RABBIT_MQ_USERNAME: ${RABBIT_MQ_USERNAME}
+      RABBIT_MQ_PASSWORD: ${RABBIT_MQ_PASSWORD}
+      RABBIT_MQ_QUEUE_NAME: ${RABBIT_MQ_QUEUE_NAME}
+      RABBIT_MQ_EXCHANGE_NAME: ${RABBIT_MQ_EXCHANGE_NAME}
+      RABBIT_MQ_ROUTING_KEY: ${RABBIT_MQ_ROUTING_KEY}
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  pg_data:
+  rabbitmq_data:
