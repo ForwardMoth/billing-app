@@ -79,6 +79,8 @@ services:
       RABBIT_MQ_USERNAME: ${RABBIT_MQ_USERNAME}
       RABBIT_MQ_PASSWORD: ${RABBIT_MQ_PASSWORD}
       RABBIT_MQ_QUEUE_NAME: ${RABBIT_MQ_QUEUE_NAME}
+      RABBIT_MQ_EXCHANGE_NAME: ${RABBIT_MQ_EXCHANGE_NAME}
+      RABBIT_MQ_ROUTING_KEY: ${RABBIT_MQ_ROUTING_KEY}
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
       interval: 10s

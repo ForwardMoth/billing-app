@@ -1,8 +1,6 @@
 CREATE TABLE call_data_records
 (
     id                  bigserial                   not null,
-    created             timestamp with time zone    not null default now(),
-    updated             timestamp with time zone    not null default now(),
     incoming_caller_id  bigint                      not null,
     outcoming_caller_id bigint                      not null,
     start_call_time     timestamp without time zone not null,
@@ -16,11 +14,8 @@ CREATE TABLE call_data_records
 
 comment on table call_data_records is 'Действия, совершенные абонентом за тарифицируемый период';
 comment on column call_data_records.id is 'Внутренний идентификатор';
-comment on column call_data_records.created is 'Дата и время создания';
-comment on column call_data_records.updated is 'Дата и время создания';
 comment on column call_data_records.incoming_caller_id is 'Идентификатор входящего абонента';
 comment on column call_data_records.outcoming_caller_id is 'Идентификатор исходящего абонента';
 comment on column call_data_records.start_call_time is 'Дата и время начала звонка';
 comment on column call_data_records.finish_call_time is 'Дата и время окончания звонка';
-comment on column call_data_records.is_sent is 'Признак отправления CDR в МС BRT';
-
+comment on column call_data_records.is_sent is 'Признак отправления записи в BRT';

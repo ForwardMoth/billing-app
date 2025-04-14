@@ -1,8 +1,5 @@
-package com.nexign.cdr_generator_app_service.service.helper;
+package com.nexign.cdr_generator_app_service.util;
 
-import com.nexign.cdr_generator_app_service.dto.CallDataRecordCallersDto;
-import com.nexign.cdr_generator_app_service.dto.DurationDto;
-import com.nexign.cdr_generator_app_service.dto.RandomDurationDto;
 import com.nexign.cdr_generator_app_service.entity.CallDataRecord;
 import com.nexign.cdr_generator_app_service.entity.Caller;
 import org.springframework.stereotype.Component;
@@ -18,7 +15,7 @@ import static com.nexign.cdr_generator_app_service.util.GeneratorUtil.generateRa
 public class CallerHelper {
 
     private static final Duration MIN_DURATION_HOURS = Duration.ofHours(1);
-    private static final Duration MAX_DURATION_HOURS = Duration.ofHours(24);
+    private static final Duration MAX_DURATION_HOURS = Duration.ofHours(4);
 
     private static final Duration MIN_DURATION_MINUTES = Duration.ofMinutes(1);
     private static final Duration MAX_DURATION_MINUTES = Duration.ofMinutes(240);
@@ -33,8 +30,8 @@ public class CallerHelper {
         final var callersInfo = generateCallerInfo(callers);
         final var randomDuration = generateDurationDto();
 
-        final var startDateTime = currentDateTime.plus(randomDuration.getDurationHours());
-        final var finishDateTime = startDateTime.plus(randomDuration.getDurationMinutes());
+        final var startDateTime = currentDateTime.plus(randomDuration.durationHours);
+        final var finishDateTime = startDateTime.plus(randomDuration.durationMinutes);
 
         if (startDateTime.toLocalDate().equals(finishDateTime.toLocalDate())) {
             return List.of(getCallDataRecord(callersInfo, new DurationDto(startDateTime, finishDateTime)));
@@ -47,16 +44,6 @@ public class CallerHelper {
         final var secondDuration = new DurationDto(startOfSecondDay, finishDateTime);
 
         return List.of(getCallDataRecord(callersInfo, firstDuration), getCallDataRecord(callersInfo, secondDuration));
-    }
-
-    private CallDataRecord getCallDataRecord(CallDataRecordCallersDto callerInfoDto,
-                                             DurationDto durationDto) {
-        return CallDataRecord.builder()
-                .incomingCaller(callerInfoDto.getIncomingCaller())
-                .outcomingCaller(callerInfoDto.getOutcomingCaller())
-                .startCallTime(durationDto.startDateTime())
-                .finishCallTime(durationDto.finishDateTime())
-                .build();
     }
 
     /**
@@ -72,10 +59,7 @@ public class CallerHelper {
         while (incomingCaller.equals(outcomingCaller)) {
             outcomingCaller = callers.get(generateRandomIndexOfArray(callersCount));
         }
-        return CallDataRecordCallersDto.builder()
-                .incomingCaller(incomingCaller)
-                .outcomingCaller(outcomingCaller)
-                .build();
+        return new CallDataRecordCallersDto(incomingCaller, outcomingCaller);
     }
 
     /**
@@ -84,10 +68,31 @@ public class CallerHelper {
      * @return RandomDurationDto
      */
     private RandomDurationDto generateDurationDto() {
-        return RandomDurationDto.builder()
-                .durationHours(generateRandomDuration(MIN_DURATION_HOURS, MAX_DURATION_HOURS))
-                .durationMinutes(generateRandomDuration(MIN_DURATION_MINUTES, MAX_DURATION_MINUTES))
+        final var durationHours = generateRandomDuration(MIN_DURATION_HOURS, MAX_DURATION_HOURS);
+        final var durationMinutes = generateRandomDuration(MIN_DURATION_MINUTES, MAX_DURATION_MINUTES);
+        return new RandomDurationDto(durationHours, durationMinutes);
+    }
+
+    private CallDataRecord getCallDataRecord(CallDataRecordCallersDto callerInfoDto,
+                                             DurationDto durationDto) {
+        return CallDataRecord.builder()
+                .incomingCaller(callerInfoDto.incomingCaller)
+                .outcomingCaller(callerInfoDto.outcomingCaller)
+                .startCallTime(durationDto.startDateTime)
+                .finishCallTime(durationDto.finishDateTime)
                 .build();
+    }
+
+    record CallDataRecordCallersDto(Caller incomingCaller, Caller outcomingCaller) {
+
+    }
+
+    record RandomDurationDto(Duration durationHours, Duration durationMinutes) {
+
+    }
+
+    public record DurationDto(LocalDateTime startDateTime, LocalDateTime finishDateTime) {
+
     }
 
 }
