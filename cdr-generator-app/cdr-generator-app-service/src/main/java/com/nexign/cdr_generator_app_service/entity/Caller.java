@@ -1,16 +1,14 @@
 package com.nexign.cdr_generator_app_service.entity;
 
-import com.nexign.lib_util.entity.TimeStampEntity;
+import com.nexign.lib_util.entity.IdEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -20,14 +18,12 @@ import java.util.List;
 /**
  * Справочник абонентов
  */
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "callers")
-public class Caller extends TimeStampEntity {
+public class Caller extends IdEntity {
 
     /**
      * Список входящих звонков
