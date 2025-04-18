@@ -2,6 +2,7 @@ package com.nexign.billing_real_time_app_service.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Queue;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,11 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class RabbitMqConfig {
 
-    private final RabbitMqProperty rabbitMqProperty;
+    @Value("${rabbitmq.queue-name}")
+    private String queueName;
 
     @Bean
     Queue queue() {
-        return new Queue(rabbitMqProperty.getQueueName(), false);
+        return new Queue(queueName, false);
     }
 
 }
