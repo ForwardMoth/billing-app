@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 public class CallDataRecordDto implements Serializable {
 
     /**
-     * Входящий абонент, обязательный
+     * Номер телефона входящего абонента, обязательный
      */
-    private CallerDto incomingCaller;
+    private String incomingCallerMsisdn;
 
     /**
-     * Исходящий абонент, обязательный
+     * Номер телефона исходящего абонента, обязательный
      */
-    private CallerDto outcomingCaller;
+    private String outcomingCallerMsisdn;
 
     /**
      * Дата и время начала звонка, обязательный

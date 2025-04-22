@@ -25,7 +25,8 @@ public class SenderServiceImpl implements SenderService {
     public void send() {
         var callDataRecordList = callDataRecordRepository.findFirst10ByIsSentFalseOrderByStartCallTime();
         while (CDR_FILE_SIZE.equals(callDataRecordList.size())) {
-            notifyBRTMessageService.sendMessage(callDataRecordMapper.map(callDataRecordList));
+            final var cdrFile = callDataRecordList.stream().map(callDataRecordMapper::map).toList();
+            notifyBRTMessageService.sendMessage(cdrFile);
             callDataRecordList.forEach(callDataRecord -> callDataRecord.setSent(true));
             callDataRecordRepository.saveAllAndFlush(callDataRecordList);
             callDataRecordList = callDataRecordRepository.findFirst10ByIsSentFalseOrderByStartCallTime();
