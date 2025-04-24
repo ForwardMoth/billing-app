@@ -1,1 +1,67 @@
 databaseChangeLog:
+  - changeSet:
+      id: 1.0.0_1__CREATE_OPERATORS
+      author: ForwardMoth
+      changes:
+        - sqlFile:
+            path: db/changelog/migration/V1.0.0_1__CREATE_OPERATORS.sql
+        - tagDatabase:
+            tag: btr-app
+      rollback:
+        - sqlFile:
+            path: db/changelog/undoing/U1.0.0_1__CREATE_OPERATORS.sql
+  - changeSet:
+      id: 1.0.0_2__CREATE_PERSON_NAMES
+      author: ForwardMoth
+      changes:
+        - sqlFile:
+            path: db/changelog/migration/V1.0.0_2__CREATE_PERSON_NAMES.sql
+        - tagDatabase:
+            tag: btr-app
+      rollback:
+        - sqlFile:
+            path: db/changelog/undoing/U1.0.0_2__CREATE_PERSON_NAMES.sql
+  - changeSet:
+      id: 1.0.0_3__CREATE_CALLERS
+      author: ForwardMoth
+      changes:
+        - sqlFile:
+            path: db/changelog/migration/V1.0.0_3__CREATE_CALLERS.sql
+        - tagDatabase:
+            tag: btr-app
+      rollback:
+        - sqlFile:
+            path: db/changelog/undoing/U1.0.0_3__CREATE_CALLERS.sql
+  - changeSet:
+      id: 1.0.0_4__CREATE_CALL_DATA_RECORDS
+      author: ForwardMoth
+      changes:
+        - sqlFile:
+            path: db/changelog/migration/V1.0.0_4__CREATE_CALL_DATA_RECORDS.sql
+        - tagDatabase:
+            tag: btr-app
+      rollback:
+        - sqlFile:
+            path: db/changelog/undoing/U1.0.0_4__CREATE_CALL_DATA_RECORDS.sql
+  - changeSet:
+      id: 1.0.0_5__CREATE_RESOURCES
+      author: ForwardMoth
+      changes:
+        - sqlFile:
+            path: db/changelog/migration/V1.0.0_5__CREATE_RESOURCES.sql
+        - tagDatabase:
+            tag: btr-app
+      rollback:
+        - sqlFile:
+            path: db/changelog/undoing/U1.0.0_5__CREATE_RESOURCES.sql
+  - changeSet:
+      id: 1.0.0_6__CREATE_EXPENSES
+      author: ForwardMoth
+      changes:
+        - sqlFile:
+            path: db/changelog/migration/V1.0.0_6__CREATE_EXPENSES.sql
+        - tagDatabase:
+            tag: btr-app
+      rollback:
+        - sqlFile:
+            path: db/changelog/undoing/U1.0.0_6__CREATE_EXPENSES.sql

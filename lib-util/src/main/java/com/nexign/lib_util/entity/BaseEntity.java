@@ -2,9 +2,15 @@ package com.nexign.lib_util.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
+@Setter
+@Getter
+@SuperBuilder
 @MappedSuperclass
 public class BaseEntity extends UuidEntity implements Serializable {
 
@@ -15,14 +21,6 @@ public class BaseEntity extends UuidEntity implements Serializable {
     }
 
     public BaseEntity(boolean actual) {
-        this.actual = actual;
-    }
-
-    public boolean isActual() {
-        return actual;
-    }
-
-    public void setActual(boolean actual) {
         this.actual = actual;
     }
 

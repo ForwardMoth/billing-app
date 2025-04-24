@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nexign.cdr_generator_app_service.util.GeneratorUtil.generateRandomNumberCallRecords;
+import static com.nexign.lib_util.util.GeneratorUtil.generateRandomNumberCallRecords;
 
 @Slf4j
 @Component
