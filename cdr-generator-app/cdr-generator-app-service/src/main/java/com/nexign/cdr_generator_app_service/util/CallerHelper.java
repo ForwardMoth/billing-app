@@ -8,8 +8,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.nexign.cdr_generator_app_service.util.GeneratorUtil.generateRandomDuration;
-import static com.nexign.cdr_generator_app_service.util.GeneratorUtil.generateRandomIndexOfArray;
+import static com.nexign.lib_util.util.GeneratorUtil.generateRandomDuration;
+import static com.nexign.lib_util.util.GeneratorUtil.generateRandomIndexOfArray;
 
 @Component
 public class CallerHelper {

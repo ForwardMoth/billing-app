@@ -2,12 +2,19 @@ package com.nexign.lib_util.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
+@Setter
+@Getter
+@SuperBuilder
 @MappedSuperclass
 public class TimeStampEntity extends IdEntity implements Serializable {
 
@@ -27,22 +34,6 @@ public class TimeStampEntity extends IdEntity implements Serializable {
         this.updated = updated;
     }
 
-    public ZonedDateTime getCreated() {
-        return created;
-    }
-
-    public ZonedDateTime getUpdated() {
-        return updated;
-    }
-
-    public void setCreated(ZonedDateTime created) {
-        this.created = created;
-    }
-
-    public void setUpdated(ZonedDateTime updated) {
-        this.updated = updated;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -53,26 +44,20 @@ public class TimeStampEntity extends IdEntity implements Serializable {
             return false;
         }
 
-        if (this.getCreated() == null && other.getCreated() != null) {
-            return false;
-        } else if (!this.getCreated().equals(other.getCreated())) {
+        if (!Objects.equals(this.getCreated(), other.getCreated())) {
             return false;
         }
 
-        if (this.getUpdated() == null && other.getUpdated() != null) {
-            return false;
-        } else {
-            return this.getUpdated().equals(other.getUpdated());
-        }
+        return Objects.equals(this.getUpdated(), other.getUpdated());
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        Object created = this.getCreated();
-        result = result * 59 + (created == null ? 43 : created.hashCode());
-        Object updated = this.getUpdated();
-        result = result * 59 + (updated == null ? 43 : updated.hashCode());
+        Object createdObj = this.getCreated();
+        result = result * 59 + (createdObj == null ? 43 : createdObj.hashCode());
+        Object updatedObj = this.getUpdated();
+        result = result * 59 + (updatedObj == null ? 43 : updatedObj.hashCode());
         return result;
 
     }

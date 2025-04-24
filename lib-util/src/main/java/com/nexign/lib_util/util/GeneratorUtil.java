@@ -1,4 +1,4 @@
-package com.nexign.cdr_generator_app_service.util;
+package com.nexign.lib_util.util;
 
 import lombok.experimental.UtilityClass;
 
@@ -22,9 +22,9 @@ public class GeneratorUtil {
     }
 
     /**
-     * Метод, генерирующий случайный индекс абонента из списка абонентов в таблице callers
+     * Метод, генерирующий случайный индекс из списка
      *
-     * @return Индекс абонента из списка абонентов в таблице callers
+     * @return Индекс из списка
      */
     public static int generateRandomIndexOfArray(int size) {
         return random.nextInt(size);

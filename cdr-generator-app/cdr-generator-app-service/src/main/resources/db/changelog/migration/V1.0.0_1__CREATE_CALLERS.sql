@@ -1,7 +1,7 @@
 CREATE TABLE callers
 (
-    id           bigserial                not null,
-    msisdn varchar(255)             not null,
+    id     bigserial    not null,
+    msisdn varchar(255) not null,
 
     constraint pk_callers_id primary key (id)
 );
