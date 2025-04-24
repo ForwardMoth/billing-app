@@ -45,16 +45,19 @@ class SenderServiceImplTest {
         // given
         final var callDataRecords = generateMockCDR();
 
-        // mock mapped dto
-        List<CallDataRecordDto> callDataRecordDtoList = List.of(mock(CallDataRecordDto.class));
-
         // mock behavior (first times get 10 CDRs, second times - 0 CDRs)
         when(callDataRecordRepository.findFirst10ByIsSentFalseOrderByStartCallTime())
                 .thenReturn(callDataRecords)
                 .thenReturn(new ArrayList<>());
 
         // mock mapping
-        when(callDataRecordMapper.map(callDataRecords)).thenReturn(callDataRecordDtoList);
+        List<CallDataRecordDto> callDataRecordDtoList = callDataRecords.stream()
+                .map(cdr -> {
+                    CallDataRecordDto dto = mock(CallDataRecordDto.class);
+                    when(callDataRecordMapper.map(cdr)).thenReturn(dto);
+                    return dto;
+                })
+                .toList();
 
         // when (check send method)
         senderService.send();

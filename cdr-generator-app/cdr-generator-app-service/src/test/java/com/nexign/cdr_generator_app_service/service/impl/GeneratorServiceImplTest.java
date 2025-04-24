@@ -5,11 +5,15 @@ import com.nexign.cdr_generator_app_service.entity.Caller;
 import com.nexign.cdr_generator_app_service.repository.CallDataRecordRepository;
 import com.nexign.cdr_generator_app_service.service.CallerService;
 import com.nexign.cdr_generator_app_service.util.CallerHelper;
-import com.nexign.cdr_generator_app_service.util.GeneratorUtil;
-import org.junit.jupiter.api.BeforeEach;
+import com.nexign.lib_util.util.GeneratorUtil;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,25 +23,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyList;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class GeneratorServiceImplTest {
 
-    private CallerService callerService;
-    private CallDataRecordRepository callDataRepository;
-    private CallerHelper callerHelper;
-    private GeneratorServiceImpl generatorService;
+    @Captor
+    ArgumentCaptor<List<CallDataRecord>> captor;
 
-    @BeforeEach
-    void setUp() {
-        callerService = mock(CallerService.class);
-        callDataRepository = mock(CallDataRecordRepository.class);
-        callerHelper = mock(CallerHelper.class);
-        generatorService = new GeneratorServiceImpl(callerService, callDataRepository, callerHelper);
-    }
+    @Mock
+    private CallerService callerService;
+
+    @Mock
+    private CallDataRecordRepository callDataRepository;
+
+    @Mock
+    private CallerHelper callerHelper;
+
+    @InjectMocks
+    private GeneratorServiceImpl generatorService;
 
     @Test
     void generate_shouldCreateAndSaveCallDataRecords() {
@@ -75,7 +81,6 @@ class GeneratorServiceImplTest {
             generatorService.generate();
 
             // then (out result)
-            ArgumentCaptor<List<CallDataRecord>> captor = ArgumentCaptor.forClass(List.class);
             verify(callDataRepository, atLeastOnce()).saveAllAndFlush(captor.capture());
 
             // check CDR
@@ -87,7 +92,6 @@ class GeneratorServiceImplTest {
             assertThat(savedRecords.get(0).getFinishCallTime()).isEqualTo("2025-04-14T17:30:15");
         }
     }
-
 
     private List<Caller> getCallers() {
         Caller firstCaller = new Caller();

@@ -2,10 +2,16 @@ package com.nexign.lib_util.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.UUID;
 
+@Setter
+@Getter
+@SuperBuilder
 @MappedSuperclass
 public class UuidEntity extends TimeStampEntity implements Serializable {
 
@@ -17,14 +23,6 @@ public class UuidEntity extends TimeStampEntity implements Serializable {
     }
 
     public UuidEntity(final UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
