@@ -9,7 +9,7 @@
     CDR_DATABASE_USERNAME=testdb
     CDR_DATABASE_PASSWORD=testdb
     
-    BRT_DATABASE_DOCKER_HOST=billing-real-time-app-db
+    BRT_DATABASE_DOCKER_HOST=brt-app-db
     BRT_DATABASE_NAME=brt-app
     BRT_DATABASE_USERNAME=brt-app
     BRT_DATABASE_PASSWORD=brt-app

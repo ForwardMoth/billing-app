@@ -2,6 +2,7 @@ package com.nexign.lib_util.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @MappedSuperclass
 public class BaseEntity extends UuidEntity implements Serializable {
 
+    @Builder.Default
     @Column(name = "actual", nullable = false)
     private boolean actual = true;
 
@@ -43,4 +45,5 @@ public class BaseEntity extends UuidEntity implements Serializable {
         result = result * 59 + (actual ? 79 : 97);
         return result;
     }
+
 }

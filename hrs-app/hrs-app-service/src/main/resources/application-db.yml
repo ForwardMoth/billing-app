@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${HRS_DATABASE_HOST}/${HRS_DATABASE_NAME}
+    username: ${HRS_DATABASE_USERNAME}
+    password: ${HRS_DATABASE_PASSWORD}
+    hikari:
+      data-source-properties:
+        useUnicode: true
+        characterEncoding: UTF-8
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog.yaml

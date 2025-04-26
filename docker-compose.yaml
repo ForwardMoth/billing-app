@@ -15,9 +15,9 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 
-  billing-real-time-app-db:
+  brt-app-db:
     image: postgres:15
-    container_name: billing-real-time-app-db
+    container_name: brt-app-db
     environment:
       POSTGRES_DB: ${BRT_DATABASE_NAME}
       POSTGRES_USER: ${BRT_DATABASE_USERNAME}
@@ -32,15 +32,15 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 
-  billing-real-time-app:
-    container_name: billing-real-time-app
+  brt-app:
+    container_name: brt-app
     depends_on:
-      billing-real-time-app-db:
+      brt-app-db:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
     build:
-      context: ./billing-real-time-app
+      context: ./brt-app
     ports:
       - "8081:8081"
     environment:
@@ -62,7 +62,7 @@ services:
   cdr-generator-app:
     container_name: cdr-generator-app
     depends_on:
-      billing-real-time-app:
+      brt-app:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy

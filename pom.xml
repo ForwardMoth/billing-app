@@ -17,7 +17,8 @@
     <modules>
         <module>lib-util</module>
         <module>cdr-generator-app</module>
-        <module>billing-real-time-app</module>
+        <module>brt-app</module>
+        <module>hrs-app</module>
     </modules>
 
     <properties>
